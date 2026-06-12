@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text Model as One Feature</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1>I Turned the Text Model Into One Feature</h1>
+      <p class="subtitle">
+        Feature-level stacking for sparse anonymized text in support escalation modeling
+      </p>
+      <div class="hero-buttons">
+        <a href="https://github.com/mah-trigui/text-model-as-one-feature" class="btn primary">View Repository</a>
+        <a href="#idea" class="btn secondary">Explore Method</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>Overview</h2>
+        <p>
+          Support-case comments were available only in anonymized token form, with partial lemma recovery through a public mapping table.
+        </p>
+        <p>
+          Rather than pushing thousands of sparse TF-IDF columns directly into the main structured model, the text pipeline was trained separately and its output was converted into a single numeric feature.
+        </p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Architecture</h2>
+        <img src="images/architecture.jpg" alt="Text model as one feature architecture" class="architecture-image" />
+      </div>
+    </section>
+
+    <section class="section" id="idea">
+      <div class="container">
+        <h2>The Core Idea</h2>
+        <p>
+          Sparse text and dense tabular features do not always belong in the same representation space.
+        </p>
+        <p>
+          So the text was summarized by its own small model first, then injected into the main model as a meta-feature.
+        </p>
+        <div class="metric-box">
+          <p><strong>The text model’s confidence became one structured signal.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Selected code snippet</h2>
+        <pre>
+nlp_score <- predict(nlp_xgb, tfidf_matrix)
+abt$nlp_score <- nlp_score
+        </pre>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Why this mattered</h2>
+        <ul class="clean-list">
+          <li>avoided flooding the main model with thousands of sparse columns</li>
+          <li>let the text model specialize on textual signal first</li>
+          <li>kept the final feature set compact and interpretable</li>
+          <li>acted like feature-level stacking instead of raw feature concatenation</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Where this pattern generalizes</h2>
+        <ul class="clean-list">
+          <li>support operations with notes or comments</li>
+          <li>claims and ticket classification systems</li>
+          <li>tabular models augmented by unstructured text</li>
+          <li>small to medium datasets where sparse-text inflation is risky</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Key Takeaway</h2>
+        <div class="metric-box">
+          <p><strong>I turned the text model into one feature.</strong></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Built as a public project showcase for feature-level stacking between text and structured data.</p>
+    </div>
+  </footer>
+</body>
+</html>
